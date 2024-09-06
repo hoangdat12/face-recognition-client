@@ -11,14 +11,17 @@ const HeaderBack = ({ title }) => {
 
   return (
     <div className='flex justify-between items-center'>
-      <div onClick={goToLastPage} className='flex gap-1 items-center pr-2 py-1'>
+      <div
+        onClick={goToLastPage}
+        className='flex gap-1 items-center pr-2 py-1 '
+      >
         <IoIosArrowBack />
         Back
       </div>
       <div>
         <h1 className='font-semibold text-2xl'>{title}</h1>
       </div>
-      <div onClick={goToLastPage} className=''>
+      <div onClick={goToLastPage} className='px-2 py-1 rounded border'>
         Done
       </div>
     </div>

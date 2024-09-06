@@ -21,7 +21,6 @@ const HistoryDetail = () => {
       const response = await axiosInstance.get(
         `/history/user/action?deviceId=${deviceId}&userId=${userId}&date=${date}`
       );
-
       if (response.status === 200) {
         setHistoryActions(response.data.data);
       }

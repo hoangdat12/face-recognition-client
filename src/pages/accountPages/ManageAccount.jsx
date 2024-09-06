@@ -14,7 +14,7 @@ const ManageAccount = () => {
     const fetchUserAccount = async () => {
       setIsLoading(true);
       const response = await axiosInstance.get(
-        `device/employee/${user.device_id}`
+        `device/employee/${user?.device_id}`
       );
       setIsLoading(false);
       if (response.status === 200) {

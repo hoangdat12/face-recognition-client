@@ -37,7 +37,13 @@ const Account = () => {
                 </div>
               </div>
               <div className='flex items-center justify-end'>
-                <div className='rounded-full h-[50px] w-[50px] bg-gray-300'></div>
+                <div className='rounded-full h-[50px] w-[50px] flex items-center justify-center bg-gray-300 mx-auto mb-4 overflow-hidden'>
+                  <img
+                    src={user?.image}
+                    alt=''
+                    className='object-cover w-full h-full'
+                  />
+                </div>
               </div>
             </div>
           </div>

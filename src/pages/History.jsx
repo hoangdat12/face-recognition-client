@@ -50,7 +50,6 @@ const History = () => {
         `/history/date/${user?.device_id}?date=${dateParams}`
       );
       setIsLoading(false);
-      console.log(response);
       if (response.status === 200) {
         setHistories(response.data?.data?.histories);
         setStartKey(response.data?.data?.start_key);
@@ -107,7 +106,11 @@ const History = () => {
               </div>
             ) : (
               histories.map((history, index) => (
-                <HistoryCard historyDetail={history} key={index} />
+                <HistoryCard
+                  historyDetail={history}
+                  key={index}
+                  activeDay={activeDay}
+                />
               ))
             )}
           </div>

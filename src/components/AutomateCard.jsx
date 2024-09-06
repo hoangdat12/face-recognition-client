@@ -26,6 +26,10 @@ const AutomateCard = ({ detail, Icon, deviceId }) => {
   );
 
   const handleToggle = async () => {
+    if (isEdit && inputValue.trim() == '') {
+      setIsEdit(false);
+      return;
+    }
     if (!isEdit) setIsOn(!isOn);
     setIsLoadingOverlay(true);
     const response = await axiosInstance.put(`/device/update/${deviceId}`, {

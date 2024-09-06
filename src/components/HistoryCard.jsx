@@ -1,15 +1,15 @@
 import React from 'react';
 import { CgEye } from 'react-icons/cg';
-import { getHistoryDate } from '../ultils';
+import { formatDateForServer, getHistoryDate } from '../ultils';
 import { useNavigate } from 'react-router-dom';
 
-const HistoryCard = ({ historyDetail }) => {
+const HistoryCard = ({ historyDetail, activeDay }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate(
       `/history/user?deviceId=${historyDetail?.id}&userId=${
         historyDetail?.employee_information?.id
-      }&date=${getHistoryDate(historyDetail?.created_at)}`,
+      }&date=${formatDateForServer(activeDay)}`,
       {
         state: {
           user: historyDetail?.employee_information,

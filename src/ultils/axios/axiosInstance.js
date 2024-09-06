@@ -6,12 +6,12 @@ import {
   getUserLocalStorageItem,
 } from '../index';
 console.log(
-  import.meta.env.VITE_API_SERVER_URL,
-  process.env.VITE_API_SERVER_URL
+  import.meta.env.VITE_APP_SERVER_URL,
+  process.env.VITE_APP_SERVER_URL
 );
 const token = getTokenLocalStorageItem();
 const axiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_API_SERVER_URL}/api/v1`,
+  baseURL: `${import.meta.env.VITE_APP_SERVER_URL}/api/v1`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

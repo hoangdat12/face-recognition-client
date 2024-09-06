@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getUserLocalStorageItem } from '../ultils';
 import axiosInstance from '../ultils/axios/axiosInstance';
 import { HistoryAction } from '../constants';
+import LoadingOverlay from './LoadingOverlay';
 
 const user = getUserLocalStorageItem();
 
 const CardButton = ({ id, Icon, title }) => {
   const [isOn, setIsOn] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [isLoadingOverlay, setIsLoadingOverlay] = useState(false);
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws/device/turn-on/');
+
+    ws.onopen = () => {
+      console.log('WebSocket connection established');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data && data?.userId !== user?.id && data?.device === id) {
+        setIsOn(data?.isTurnOn);
+      }
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+
+    setSocket(ws);
+
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   const handleAction = async () => {
+    if (!user?.id) return;
     const requestData = {
       deviceId: user?.device_id,
       userId: user?.id,
@@ -16,14 +45,18 @@ const CardButton = ({ id, Icon, title }) => {
         ? HistoryAction[title.toLowerCase()][0]
         : HistoryAction[title.toLowerCase()][1],
     };
-    const response = await axiosInstance.post(
-      '/history/action/create',
-      requestData
-    );
 
-    if (response.data === 200) {
-      setIsOn(!isOn);
-    }
+    // Create history
+    // axiosInstance.post('/history/action/create', requestData);
+
+    setIsOn(!isOn);
+    // Websocket send message
+    const message = {
+      device: id,
+      status: 'TURN_ON',
+      userId: user?.id,
+    };
+    if (socket) socket.send(JSON.stringify(message));
   };
 
   return (
@@ -58,6 +91,7 @@ const CardButton = ({ id, Icon, title }) => {
           <div className='block relative bg-gray-300 w-16 h-9 p-1 rounded-full before:absolute before:bg-white before:w-7 before:h-7 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-white peer-checked:bg-green-500'></div>
         </label>
       </div>
+      <LoadingOverlay isLoading={isLoadingOverlay} />
     </div>
   );
 };

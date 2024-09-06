@@ -20,7 +20,7 @@ const Setting = () => {
   useEffect(() => {
     const getDeviceInformation = async () => {
       setIsLoading(true);
-      const response = await axiosInstance.get(`/device/${user.device_id}`);
+      const response = await axiosInstance.get(`/device/${user?.device_id}`);
       if (response.status === 200) {
         setDevicaDetail(response.data.data);
       }
@@ -36,16 +36,16 @@ const Setting = () => {
       style={{ minHeight: 'calc(100vh - 80px)' }}
     >
       <NavBar />
-      {isLoading ? (
-        <div className='flex items-center justify-center h-screen w-screen'>
-          <Loading isLoading={isLoading} />
+      <div className='container mx-auto px-4 py-5'>
+        <div className='mb-6'>
+          <h1 className='font-bold text-4xl'>SETTING</h1>
+          <span className='font-medium text-xl'>Automate action</span>
         </div>
-      ) : (
-        <div className='container mx-auto px-4 py-5'>
-          <div className='mb-6'>
-            <h1 className='font-bold text-4xl'>SETTING</h1>
-            <span className='font-medium text-xl'>Automate action</span>
+        {isLoading ? (
+          <div className='flex items-center justify-center h-screen w-screen'>
+            <Loading isLoading={isLoading} />
           </div>
+        ) : (
           <div className='space-y-4'>
             {deviceDetail?.device_informations.map((detail, index) => (
               <AutomateCard
@@ -56,8 +56,8 @@ const Setting = () => {
               />
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
