@@ -10,8 +10,6 @@ import axiosInstance from '../../ultils/axios/axiosInstance';
 import ToastNotification from '../../components/ToastNotification';
 import LoadingOverlay from '../../components/LoadingOverlay';
 
-const user = getUserLocalStorageItem();
-
 const CreateAccountDevice = () => {
   const navigate = useNavigate();
 
@@ -29,6 +27,8 @@ const CreateAccountDevice = () => {
     confirmPassword: '',
     username: '',
   });
+
+  const user = getUserLocalStorageItem();
 
   const handleInputChange = (name, value) => {
     setFormData({

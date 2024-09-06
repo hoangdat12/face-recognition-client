@@ -6,8 +6,6 @@ import { getUserLocalStorageItem } from '../ultils';
 import axiosInstance from '../ultils/axios/axiosInstance';
 import Loading from '../components/Loading';
 
-const user = getUserLocalStorageItem();
-
 const SettingIcon = {
   light: FaLightbulb,
   temperature: FaThermometerHalf,
@@ -16,6 +14,8 @@ const SettingIcon = {
 const Setting = () => {
   const [deviceDetail, setDevicaDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = getUserLocalStorageItem();
 
   useEffect(() => {
     const getDeviceInformation = async () => {

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const NotAuthorized = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(-1);
+    navigate('/account');
   };
   return (
     <div>

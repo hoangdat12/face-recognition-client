@@ -1,40 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { getUserLocalStorageItem } from '../ultils';
 import axiosInstance from '../ultils/axios/axiosInstance';
 import { HistoryAction } from '../constants';
 import LoadingOverlay from './LoadingOverlay';
 
-const user = getUserLocalStorageItem();
-
 const CardButton = ({ id, Icon, title }) => {
   const [isOn, setIsOn] = useState(false);
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
   const [isLoadingOverlay, setIsLoadingOverlay] = useState(false);
+  const user = getUserLocalStorageItem();
 
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws/device/turn-on/');
+  // useEffect(() => {
+  //   const ws = new WebSocket('ws://localhost:8000/ws/device/turn-on/');
 
-    ws.onopen = () => {
-      console.log('WebSocket connection established');
-    };
+  //   ws.onopen = () => {
+  //     console.log('WebSocket connection established');
+  //   };
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data && data?.userId !== user?.id && data?.device === id) {
-        setIsOn(data?.isTurnOn);
-      }
-    };
+  //   ws.onmessage = (event) => {
+  //     const data = JSON.parse(event.data);
+  //     if (data && data?.userId !== user?.id && data?.device === id) {
+  //       setIsOn(data?.isTurnOn);
+  //     }
+  //   };
 
-    ws.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
+  //   ws.onclose = () => {
+  //     console.log('WebSocket connection closed');
+  //   };
 
-    setSocket(ws);
+  //   setSocket(ws);
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, []);
 
   const handleAction = async () => {
     if (!user?.id) return;
@@ -47,16 +46,16 @@ const CardButton = ({ id, Icon, title }) => {
     };
 
     // Create history
-    // axiosInstance.post('/history/action/create', requestData);
+    axiosInstance.post('/history/action/create', requestData);
 
     setIsOn(!isOn);
     // Websocket send message
-    const message = {
-      device: id,
-      status: 'TURN_ON',
-      userId: user?.id,
-    };
-    if (socket) socket.send(JSON.stringify(message));
+    // const message = {
+    //   device: id,
+    //   status: 'TURN_ON',
+    //   userId: user?.id,
+    // };
+    // if (socket) socket.send(JSON.stringify(message));
   };
 
   return (

@@ -8,8 +8,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { formatDate, formatDateForServer } from '../ultils/index';
 import Loading from '../components/Loading';
 
-const user = getUserLocalStorageItem();
-
 const History = () => {
   const location = useLocation();
 
@@ -19,6 +17,8 @@ const History = () => {
   const [previous7Days, setPrevious7Days] = useState([]);
   const [activeDay, setActiveDay] = useState('');
   const [startKey, setStartKey] = useState(null);
+
+  const user = getUserLocalStorageItem();
 
   useEffect(() => {
     const getPrevious7Days = () => {

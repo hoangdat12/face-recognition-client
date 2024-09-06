@@ -4,11 +4,11 @@ import axiosInstance from '../../ultils/axios/axiosInstance';
 import { getUserLocalStorageItem } from '../../ultils';
 import Loading from '../../components/Loading';
 
-const user = getUserLocalStorageItem();
-
 const ManageAccount = () => {
   const [userAccounts, setUserAccounts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = getUserLocalStorageItem();
 
   useEffect(() => {
     const fetchUserAccount = async () => {

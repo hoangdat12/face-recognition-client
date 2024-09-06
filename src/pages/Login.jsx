@@ -3,10 +3,8 @@ import Input from '../components/Input';
 import axiosInstance from '../ultils/axios/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import LoadingOverlay from '../components/LoadingOverlay';
-import { AuthContext } from '../ultils/context/Auth';
 
 const Login = () => {
-  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoadingOverlay, setIsLoadingOverlay] = useState(false);
 
@@ -38,7 +36,6 @@ const Login = () => {
         'refreshToken',
         JSON.stringify(responseData.refresh)
       );
-      setUser(responseData.user);
       navigate('/');
     }
   };

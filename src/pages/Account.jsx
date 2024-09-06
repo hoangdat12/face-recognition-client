@@ -10,10 +10,11 @@ import ManageAccount from './accountPages/ManageAccount';
 import { clearLocalStorage, getUserLocalStorageItem } from '../ultils';
 import { useNavigate } from 'react-router-dom';
 
-const user = getUserLocalStorageItem();
-
 const Account = () => {
   const navigate = useNavigate();
+
+  const user = getUserLocalStorageItem();
+
   const handleLogout = async () => {
     clearLocalStorage();
     navigate('/login');

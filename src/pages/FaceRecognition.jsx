@@ -7,12 +7,12 @@ import axiosInstance from '../ultils/axios/axiosInstance';
 import { getFullNameUser, getUserLocalStorageItem } from '../ultils';
 import LoadingOverlay from '../components/LoadingOverlay';
 
-const user = getUserLocalStorageItem();
-
 const FaceRecognition = () => {
   const [file, setFile] = useState(null);
   const [message, setShowMessage] = useState('');
   const [isLoadingOverlay, setIsLoadingOverlay] = useState(false);
+
+  const user = getUserLocalStorageItem();
 
   const handleVerifyFace = async () => {
     const fd = new FormData();
